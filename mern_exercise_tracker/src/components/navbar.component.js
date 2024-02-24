@@ -1,25 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Navbar, Nav } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
-function Navbar(){
-    return(
-        <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-            <Link to="/" className="navbar-brand">ExerciseTracker</Link>
-            <div className="collapse navbar-collapse">
-                <ul className="navbar-nav mr-auto">
-                    <li className="navbar-item">
-                        <Link to="/"className="nav-link" >Exercise</Link>
-                    </li>
-                    <li className="navbar-item">
-                        <Link to="/create"className="nav-link" >Create Exercise</Link>
-                    </li>
-                    <li className="navbar-item">
-                        <Link to="/user"className="nav-link" >Create User</Link>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    );
+function MyNav() {
+  return (
+    <Navbar bg="dark" variant="dark">
+    <Navbar.Brand as={NavLink} to="/">Exercise Tracker</Navbar.Brand>
+    <Nav className="mr-auto">
+      <Nav.Link as={NavLink} to="/" exact>Exercise List</Nav.Link>
+      <Nav.Link as={NavLink} to="/create">Create Exercise</Nav.Link>
+      <Nav.Link as={NavLink} to="/user">Create User</Nav.Link>
+      <Nav.Link as={NavLink} to="/edit">Edit Exercise</Nav.Link>
+    </Nav>
+  </Navbar>
+  );
 }
 
-export default Navbar;
+export default MyNav;
