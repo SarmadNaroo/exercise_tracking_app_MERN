@@ -1,4 +1,6 @@
-import React, { useState, useRef } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CreateExercises = () => {
   const [username, setUsername] = useState('');
@@ -6,7 +8,8 @@ const CreateExercises = () => {
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
   const [users, setUsers] = useState(['test user']);
-  const selectRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const onChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -24,6 +27,15 @@ const CreateExercises = () => {
     setDate(e.target.value);
   };
 
+  useEffect(() => {
+    axios.get('http://localhost:5000/users/')
+      .then(res => {
+        if (res.data.length > 0) {
+          setUsers(res.data.map(user => user.username));
+        }
+      });
+  }, []);
+
   const onSubmit = (e) => {
     e.preventDefault();
     const exercise = {
@@ -33,6 +45,11 @@ const CreateExercises = () => {
       date
     };
     console.log(exercise);
+
+    axios.post('http://localhost:5000/exercises/add', exercise)
+      .then(res => console.log(res.data));
+
+    navigate('/');
   };
 
   return (
